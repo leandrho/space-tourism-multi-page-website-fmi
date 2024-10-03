@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Bellefair&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&display=swap');
+
+:root{
+    /* colors */
+    --dark-blue: 230, 35%, 7%;
+    --light-blue: 231, 77%, 90%;
+    --white: 0, 0%, 100%;
+
+    /* fonts */
+    --ff-primary: 'Bellefair', serif;
+    --ff-secondary: 'Barlow Condensed', sans-serif;
+    --ff-normal: 'Barlow', sans-serif;
+
+    --fs-900: 9rem;     /*  144px */
+    --fs-800: 6.25rem;  /*  100px */
+    --fs-700: 3.5rem;   /*  56px  */
+    --fs-600: 2rem;     /*  32px  */
+    --fs-500: 1.75rem;  /*  28px  */
+    --fs-400: 1.125rem; /*  18px  */
+    --fs-300: 1rem;     /*  16px  */
+    --fs-200: 0.875rem; /*  14px  */
+
+    /* spacing */
+    --sp-1600: 8rem;    /*  128px */
+    --sp-1200: 6rem;    /*  96px  */
+    --sp-1000: 5rem;    /*  80px  */
+    --sp-800: 4rem;     /*  64px  */
+    --sp-600: 3rem;     /*  48px  */
+    --sp-500: 2.5rem;   /*  40px  */
+    --sp-400: 2rem;     /*  32px  */
+    --sp-300: 1.5rem;   /*  24px  */
+    --sp-200: 1rem;     /*  16px  */
+    --sp-150: 0.75rem;  /*  12px  */
+    --sp-100: 0.5rem;   /*  8px   */
+    --sp-50: 0.25rem;   /*  4px   */
+    --sp-25: 0.125rem;  /*  2px   */
+}
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p{
+    font-weight: 400;
+}
+img, picture{
+    display: block;
+    max-width: 100%;
+}
+ul, li{
+    text-decoration: none;
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+body{
+    min-height: 100vh;
+}
