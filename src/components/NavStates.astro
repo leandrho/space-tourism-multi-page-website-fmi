@@ -1,0 +1,118 @@
+---
+import type { NtLink } from "../interfaces/nt-link"
+
+interface Props{
+    navLinks: NtLink[];
+}
+
+const { navLinks } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+let path = currentPath.split('/').at(1);
+
+---
+<nav class="navbar">
+    <ul class="nav-ul">
+    {
+        navLinks && navLinks.map((link , idx)=>(
+                <li class="nav-item">
+                    <a href={link.ref} class="nav-link">
+                        <span>0{idx}</span>
+                        {link.name}
+                    </a>
+                    {   
+                        path===link.ref.split('/').at(1)?
+                            (<div transition:name="nav-line" class="nav-line white-line" ></div>)
+                            :
+                            (<div class="nav-line" ></div>)
+                    }
+                </li>
+        ))
+    }
+    </ul>
+</nav>
+<style> 
+    .navbar{
+        width: 100%;
+        min-width: 664px;
+        max-width: 736px;
+        display: flex;
+        justify-content: flex-end;
+        padding-inline: var(--sp-800);
+    }
+    .nav-ul{
+        display: flex;
+        gap: var(--sp-600);
+    }
+    .nav-item{
+        border: none;
+        outline: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .nav-line{
+        width: 100%;
+        border-bottom: 3px solid transparent;
+        transition: border linear 0.3s;
+    }
+    .white-line{
+        border-bottom-color: hsl(var(--white));
+    }
+    .nav-item:has(a:hover) div {
+        border-bottom: 3px solid hsl(var(--white), 0.5);
+    }
+    .nav-link{
+        display: flex;
+        gap: var(--sp-150);
+        padding-block: var(--sp-500);
+        color: hsl(var(--white));
+        text-transform: uppercase;
+        font-family: var(--ff-secondary);
+        font-size: var(--fs-300);
+        letter-spacing: 2px;
+    }
+    .nav-link span{
+        font-weight: bold;
+    }
+    @media screen and (max-width: 1024px) {
+        .navbar{
+            padding-inline: var(--sp-500);
+        }
+    }
+    @media screen and (max-width: 760px) {
+        .navbar{
+            min-width: 100%;
+            max-width: 100%;
+            width: 100%;
+            display: flex;
+            margin-top: var(--sp-600);
+            padding: 0;
+            padding-left: var(--sp-400);
+        }
+        .nav-line{
+            border-bottom: none;
+            border-right: 3px solid transparent;
+        }
+        .white-line{
+            border-color: hsl(var(--white));
+        }
+        .nav-ul{
+            width: 100%;
+            flex-direction: column;
+            gap: var(--sp-300)
+        }
+        .nav-link{
+            padding-block: 0;
+            width: 100%;
+            align-self: flex-start;
+        }
+        .nav-item{
+            flex-direction: row;
+        }
+        .nav-item:has(a:hover) div {
+            border-bottom: none;
+            border-right: 3px solid hsl(var(--white), 0.5);
+        }
+    }
+</style>

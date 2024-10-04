@@ -1,0 +1,69 @@
+---
+import type { NtLink } from "../interfaces/nt-link";
+
+const { links } = Astro.props;
+const currentPath = Astro.url.pathname.replace('%20',' ');
+---
+
+<div class="wrapper">
+    {
+        links.map( (link:NtLink, index :number) => 
+            <a href={link.ref} 
+            class:list={[
+                'dot',
+                { 'active': currentPath == link.ref ? true : false }
+            ]}
+            aria-label="dot">{index}</a> 
+        )
+    }
+</div>
+
+<style>
+    .wrapper{
+        display: flex;
+        flex-direction: column;
+        gap: var(--sp-400);
+        font-family: var(--ff-primary);
+        font-size: var(--fs-600);
+        letter-spacing: 0px;
+    }
+    .dot{
+        text-decoration: none;
+        width: 80px;
+        height: 80px;
+        border-radius: 999px;
+        border: 2px solid hsl(var(--white), 0.17);
+        color: hsl(var(--white));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .dot:hover{
+        border-color: hsl(var(--white), 0.5);
+    }
+    .dot.active{
+        border-color: hsl(var(--white));
+        background-color: hsl(var(--white));
+        color: hsl(var(--dark));
+    }
+    @media screen and (max-width: 1024px) {
+        .wrapper{
+            gap: var(--sp-200);
+            flex-direction: row;
+            font-size: 24px;
+        }
+        .dot{
+            width: 56px;
+            height: 56px;
+        }
+    }
+    @media screen and (max-width: 760px) {
+        .wrapper{
+            font-size: 18px;
+        }
+        .dot{
+            width: 40px;
+            height: 40px;
+        }
+    }
+</style>

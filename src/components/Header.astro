@@ -1,0 +1,132 @@
+---
+import Brand from "./Brand.astro"
+import NavStates from "./NavStates.astro"
+import type { NtLink } from "../interfaces/nt-link";
+import { getHeaderNavLinks } from '../utility/database';
+
+
+let navLinks: NtLink[] = getHeaderNavLinks();
+---
+<header>
+    <div class="wrapper">
+        <div class="brand-container">
+            <Brand/>
+            <div class="line"></div>
+        </div>
+        <div class="nav">
+            <NavStates navLinks={navLinks} />
+        </div>
+        <div class="btn-container">
+            <button class="btn" aria-label="menu" data-id="btn"></button>
+        </div>
+    </div>
+</header>
+<script >
+    const init = () => {
+        const btnElem = document.querySelector('[data-id="btn"]') as HTMLButtonElement;
+        btnElem.addEventListener('click',()=>{
+            const navContainer = document.querySelector('.nav') as HTMLElement;
+            navContainer.classList.toggle('active');
+        });
+    }
+    init();
+    document.addEventListener('astro:after-swap',init);
+</script>
+<style>
+    .wrapper{
+        padding-top: var(--sp-500);
+        padding-bottom: 5px;
+        /* height: 136px; */
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        position: relative;
+
+    }
+    .brand-container{
+        height: 100%;
+        left: 0;
+        width: 52%;
+        padding-left: var(--sp-800);
+        display: flex;
+        align-items: center;
+        gap: var(--sp-800);
+        position: absolute;
+        z-index: 10;
+    }
+    .line{
+        height: 1px;
+        flex-grow: 2;
+        background-color: hsl(var(--white), 0.25);
+    }
+    .nav{
+        min-width: 50%;
+        background-color: hsl(var(--white), 0.05);
+        backdrop-filter: blur(50px);
+        display: flex;
+        justify-content: flex-end;
+    }
+    .nav.active{
+        transform: translateX(0%);
+    }
+    .btn{
+        border: none;
+        background-color: transparent;
+        width: 24px;
+        height: 21px;
+        background-image: url(/assets/shared/icon-hamburger.svg); 
+        background-repeat: no-repeat;
+        background-size: contain;
+        display: none;
+    }
+    .wrapper:has(.nav.active) .btn{
+        background-image: url(/assets/shared/icon-close.svg); 
+    }
+    @media screen and (max-width: 1260px) {
+        .line{
+            display: none;
+        }
+    }
+    @media screen and (max-width: 1024px) {
+        .wrapper{
+            padding-top: 0;
+        }
+        .brand-container{
+            position: static;
+            width: auto;
+            padding-inline: var(--sp-500);
+        }
+        .nav{
+            flex-grow: 2;
+        }
+    }
+    @media screen and (max-width: 760px) {
+        .btn{
+            display: block;
+        }
+        .wrapper{
+            height: 88px;
+            padding-top: 0px;
+            justify-content: space-between
+        }
+        .nav{
+            position: fixed;
+            width: 65%;
+            height: 100%;
+            top: 0;
+            left: 35%;
+            padding-top: 10vh;
+            background-color: hsl(var(--white), 0.05);
+            transform: translateX(100%);
+            transition: transform ease-in-out 0.3s;
+        }
+        .btn-container{
+            padding-inline: var(--sp-300);
+            z-index: 100;
+        }
+        .brand-container{
+            padding-inline: var(--sp-300);
+        }
+
+    }
+</style>

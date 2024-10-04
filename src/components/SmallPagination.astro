@@ -1,0 +1,72 @@
+---
+
+import type { NtLink } from "../interfaces/nt-link";
+
+const { tabLinks } = Astro.props;
+const currentPath = Astro.url.pathname.replace('%20',' ');
+
+---
+
+<div class="wrapper" data-id="small-tab">
+
+    {
+        tabLinks.map( (link:NtLink) => 
+            <a href={link.ref} 
+            class:list={[
+                'dot',
+                { 'active': currentPath == link.ref ? true : false }
+            ]}
+            aria-label="dot"></a> 
+        )
+    }
+
+</div>
+
+<style>
+    .wrapper{
+        display: flex;
+        gap: var(--sp-500);
+    }
+    .dot{
+        width: 15px;
+        height: 15px;
+        border-radius: 999px;
+        background-color: hsl(var(--white), 0.17);
+    }
+    .dot:hover{
+        background-color: hsl(var(--white), 0.5);
+    }
+    .dot.active{
+        background-color: hsl(var(--white));
+    }
+    @media screen and (max-width: 780px) {
+        .wrapper{
+            gap: var(--sp-200);
+        }
+        .dot{
+            width: 10px;
+            height: 10px;
+        }
+    }
+</style>
+
+<script>
+     const init = () => {
+        const tabElem = document.querySelector('[data-id="small-tab"]') ;
+        setInterval(() => {
+                const active = tabElem!.querySelector('.active') as HTMLAnchorElement ;
+                if(!active)
+                    return;
+                active.classList.remove('active');
+                let next : HTMLAnchorElement ;
+                if(active.nextElementSibling)
+                    next = active.nextElementSibling as HTMLAnchorElement;
+                else{
+                    next = tabElem!.firstElementChild as HTMLAnchorElement;
+                }
+                next!.click();
+        }, 1000);
+    }
+    // init();
+    // document.addEventListener('astro:page-load', init)
+</script>

@@ -1,16 +1,139 @@
 ---
+import MainLayout from "../layouts/MainLayout.astro"
+import ExploreButton from "../components/ExploreButton.astro"
 
 ---
+<MainLayout>
+	<section class="wrapper">
+		<div class="content">
+			<div class="content-text">
+				<p>so, you wnat to travel to</p>
+				<h1>space</h1>
+				<p>
+					Let’s face it; if you want to go to space, you might as well genuinely go to outer space
+				    and not hover kind of on the edge of it. Well sit back, and relax because we’ll give you 
+					a truly out of this world experience!
+				</p>
+			</div>
+			<div class="content-action">
+				<ExploreButton />
+			</div>
+		</div>
+	</section>
+</MainLayout>
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<!-- STYLES -->
+<style>
+	.wrapper{
+		/* max-width: 77%; */
+		display: flex;
+		align-items: flex-end;
+	}
+	.content{
+		display: flex;
+		gap: var(--sp-300);
+		padding-inline: var(--sp-200);
+		padding: var(--sp-1600);
+	}
+	.content-text{
+		width: 50%;
+		display: flex;
+		flex-direction: column;
+		gap: var(--sp-300);
+		color: hsl(var(--white));
+	}
+	h1{
+		font-family: var(--ff-primary);
+		font-size: var(--fs-900);
+		letter-spacing: 0px;
+		text-transform: uppercase;
+	}
+	.content-text p:first-child{
+		font-family: var(--ff-secondary);
+		font-size: var(--fs-500);
+		letter-spacing: 4px;
+		text-transform: uppercase;
+		color: hsl(var(--light-blue));
+
+	}
+	.content-text p:last-child{
+		font-family: var(--ff-normal);
+		font-size: var(--fs-400);
+		letter-spacing: 0px;
+		line-height: 1.8;
+		color: hsl(var(--light-blue));
+	}
+	.content-action{
+		width: 50%;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+	@media screen and (max-width: 1024px) {
+		.wrapper{
+			max-width: 100%;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+		}
+		.content{
+			flex-direction: column;
+			min-height: 672px;
+			justify-content: space-between;
+			
+		}
+		.content-text, .content-action{
+			width: 100%;
+			max-width: 512px;
+			text-align: center;
+		}
+		.content-action{
+			justify-content: center;
+		}
+		.content-text p:last-child{
+		
+			font-size: 16px;
+		
+		}
+		
+    }
+    @media screen and (max-width: 760px) {
+		.content{
+			padding: var(--sp-300);
+			justify-content: flex-start;
+		}
+		h1{
+			font-size: 80px;		
+		}
+		.content-text p:first-child{
+			font-size: 16px;
+		}
+		.content-text p:last-child{
+			font-size: 15px;
+		}
+		.content-action{
+			align-items: center;
+			flex-grow: 1;
+		}
+	}
+</style>
+
+<!-- STYLES GLOBAL-->
+<style is:global>
+	.background{
+		background-color: hsl(var(--dark-blue));
+	}
+	.background::before{
+		background-image: url(/assets/home/background-home-desktop.jpg);
+	}
+	@media screen and (max-width: 850px) {
+		.background::before{
+			background-image: url(/assets/home/background-home-tablet.jpg);
+		}
+    }
+    @media screen and (max-width: 500px) {
+		.background::before{
+			background-image: url(/assets/home/background-home-mobile.jpg);
+		}
+	}
+</style>

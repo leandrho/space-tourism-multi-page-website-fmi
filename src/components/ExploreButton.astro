@@ -1,0 +1,33 @@
+---
+
+---
+<div>
+    <a href="/destinations/moon" class="btn">Explore</a>
+</div>
+<style>
+    .btn{
+        display: block;
+        min-width: 272px;
+        min-height: 272px;
+        border-radius: 9999px;
+        cursor: pointer;
+        background-color: hsl(var(--white));
+        font-family: var(--ff-primary);
+        font-size: var(--fs-600);
+        letter-spacing: 0px;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .btn:hover{
+       outline: 88px solid hsl(var(--white), 0.1);
+    }
+    @media screen and (max-width: 768px) {
+           .btn{
+                min-width: 144px;
+                min-height: 144px;
+                font-size: 18px;
+           }
+    }
+</style>
