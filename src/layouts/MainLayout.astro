@@ -1,0 +1,57 @@
+---
+import { ViewTransitions } from "astro:transitions"
+import Header from "../components/Header.astro"
+
+---
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="stylesheet" href="/css/global.css">
+		<meta name="viewport" content="width=device-width" />
+		<title>Space tourism website</title>
+		<ViewTransitions/>
+	</head>
+	<body class="background">
+		<div class="containers">
+			<Header/>
+			<main>
+				<slot />
+			</main>
+		</div>
+	</body>
+</html>
+<style is:global>
+	body{
+		display: flex;
+		justify-content: center;
+		min-height: 100vh;
+	}
+	.containers{
+		width: 100%;
+		max-width: 1440px;
+		display: flex;
+		flex-direction: column;
+	}
+	.background{
+		/* background-image: url(../../public/assets/home/background-home-desktop.jpg); */
+		position: relative;
+	
+	}
+	.background::before{
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		inset: 0;
+		background-repeat: no-repeat;
+		background-size: cover;
+		z-index: -100;
+	}
+</style>
+<style>
+	main{
+		flex-grow: 2;
+		display: flex;
+	}
+</style>
