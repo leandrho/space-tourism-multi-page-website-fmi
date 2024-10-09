@@ -1,0 +1,227 @@
+---
+import type { GetStaticPaths } from "astro";
+import MainLayout from "../../layouts/MainLayout.astro"
+import { getTechnology, getTechnologyTabLinks } from "../../utility/database";
+import type { NtLink } from "../../interfaces/nt-link";
+import LargePagination from "../../components/LargePagination.astro";
+import type { Technology } from "../../interfaces/data";
+
+export const getStaticPaths = (() => {
+	const technos :NtLink[] = getTechnologyTabLinks();
+	return technos.map( t => (
+		{ params: {name: t.name}, props: {link: t} }
+	));
+}) satisfies GetStaticPaths;
+
+
+const param = Astro.params;
+const { link } = Astro.props;
+const techno = getTechnology(param.name) as Technology;
+const links = getTechnologyTabLinks();
+---
+<MainLayout>
+	<section class="wrapper">
+		<div class="contain">
+			<h2><span>03</span> Space launch 101</h2>
+			<div class="content">
+				<div class="content-left">
+					<div class="pagination">
+						<LargePagination links={links}  transition:name="largepag"/>
+					</div>
+					<div class="content-text">
+						<div class="content-title">
+							<h3>The Terminology…</h3>
+							<p>{techno?.name}</p>
+						</div>
+						<p class="text">
+							{techno?.description}
+						</p>
+					</div>
+				</div>
+				<div class="content-right">
+					<picture class="pic">
+						<source media="(max-width: 1024px)" srcset={`.${techno?.images.landscape}`}>
+						<source media="(min-width: 1025px)" srcset={`.${techno?.images.portrait}`}>
+						<img src={`.${techno?.images.portrait}`}  alt="" class="img">
+					</picture>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+</MainLayout>
+<style>
+	
+	h2{
+		color: hsl(var(--white));
+		font-family: var(--ff-secondary);
+		font-size: var(--fs-500);
+		letter-spacing: 4px;
+		text-transform: uppercase;
+	}
+	h2 span{
+		color: hsl(var(--white),0.25);
+		font-weight: bold;
+	}
+	.wrapper{
+		display: flex;
+		justify-content: flex-end;
+		width: 100%;
+		padding-block: var(--sp-600);
+	}
+	.contain{
+		margin-left: var(--sp-300);
+	}
+	.content{
+		display: flex;
+		gap: var(--sp-400);
+		height: 100%;
+		max-width: 1275px;
+	}
+	.content-left{
+		width: 50%;
+		display: flex;
+		align-items: center;
+		gap: var(--sp-800);
+	}
+	.content-text{
+		color: hsl(var(--white));
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: var(--sp-300);
+
+	}
+	.content-title{
+		display: flex;
+		flex-direction: column;
+		gap: var(--sp-200);
+		text-transform: uppercase;
+	}
+	.content-title h3{
+		font-family: var(--ff-primary);
+    	font-size: var(--fs-600);
+    	letter-spacing: 0px;
+		color: hsl(var(--white), 0.5);
+	}
+	.content-title p{
+		font-family: var(--ff-primary);
+    	font-size: var(--fs-700);
+    	letter-spacing: 0px;
+	}
+	.text{
+		font-family: var(--ff-normal);
+    	font-size: var(--fs-400);
+    	letter-spacing: 0px;
+		line-height: 1.8;
+		color: hsl(var(--light-blue));
+	}
+	.content-right{
+		width: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.pic{
+		width: 100%;
+		background-color: red;
+	}
+	
+	.img{
+		object-fit: cover;
+		width: 100%;
+		max-height: 600px;
+		min-height: 357px;
+		/* mask-image: linear-gradient( hsl(var(--dark-blue)) 80%, transparent) ; */
+	}
+	@media screen and (max-width: 1024px) {
+		.wrapper{
+			justify-content: center;
+		}
+		h2{
+			font-size: 20px;
+			margin-inline: var(--sp-500);
+		}
+		.contain{
+			margin: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: var(--sp-300);
+		}
+		.content{
+			flex-direction: column-reverse ;
+			align-items: center;
+		}
+		.content-left, .content-right{
+			width: 100%;
+		}
+		.content-left{
+			max-width: 512px;
+			flex-direction: column;
+			text-align: center;
+			gap: var(--sp-500);
+		}
+		.content-title h3{
+			font-size: 24px;
+		}
+		.content-title p{
+			font-size: 40px;
+		}
+		.text{
+			font-size: 16px;
+		}
+		.img{
+			max-height: 357px;
+		}
+		.content-text{
+			min-height: 258px;
+		}
+    }
+    @media screen and (max-width: 760px) {
+		.wrapper{
+			padding-block: var(--sp-300);
+		}
+		h2{
+			font-size: 16px;	
+		}
+		.content{
+		
+		}
+		.content-title h3{
+			font-size: 18px;
+		}
+		.content-title p{
+			font-size: 24px;
+		}
+		.text{
+			font-size: 15px;
+		}
+		.content-text{
+			padding-inline: var(--sp-300);
+		}
+		.img{
+			height: 258px;
+			min-height: 258px;
+		}
+	}
+</style>
+<style is:global>
+	.background{
+		background-color: hsl(var(--dark-blue));
+	}
+	.background::before{
+		background-image: url(/assets/technology/background-technology-desktop.jpg);
+		opacity: 70%;
+	}
+	@media screen and (max-width: 850px) {
+		.background::before{
+			background-image: url(/assets/technology/background-technology-tablet.jpg);
+		}
+    }
+    @media screen and (max-width: 500px) {
+		.background::before{
+			background-image: url(/assets/technology/background-technology-mobile.jpg);
+		}
+	}
+</style>
