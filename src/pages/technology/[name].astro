@@ -40,8 +40,8 @@ const links = getTechnologyTabLinks();
 				</div>
 				<div class="content-right">
 					<picture class="pic">
-						<source media="(max-width: 1024px)" srcset={`.${techno?.images.landscape}`}>
-						<source media="(min-width: 1025px)" srcset={`.${techno?.images.portrait}`}>
+						<source media="(max-width: 1024px)" srcset={`${techno?.images.landscape}`}>
+						<source media="(min-width: 1025px)" srcset={`${techno?.images.portrait}`}>
 						<img src={`${techno?.images.portrait}`}  alt="" class="img">
 					</picture>
 				</div>
@@ -124,7 +124,6 @@ const links = getTechnologyTabLinks();
 	}
 	.pic{
 		width: 100%;
-		background-color: red;
 	}
 	
 	.img{
