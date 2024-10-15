@@ -15,7 +15,6 @@ export const getStaticPaths = (() => {
 
 
 const param = Astro.params;
-const { link } = Astro.props;
 const techno = getTechnology(param.name) as Technology;
 const links = getTechnologyTabLinks();
 ---

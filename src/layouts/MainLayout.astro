@@ -54,3 +54,29 @@ import Header from "../components/Header.astro"
 		display: flex;
 	}
 </style>
+<script is:inline>
+    const setcurrentdot = ()=>{
+     const hrefs = document.querySelectorAll('.dot')
+     for(let i = 0; i < hrefs.length; ++i){
+         if(hrefs[i].getAttribute('href')===window.location.pathname.replace('%20',' ')){
+             hrefs[i].classList.add('active');
+             
+         }
+     }
+    }
+    setcurrentdot();
+    document.addEventListener('astro:after-swap',()=>{setcurrentdot()})
+ </script>
+ <script is:inline>
+	const setcurrent = ()=>{
+	 const hrefs = document.querySelectorAll('.tab-link')
+	 for(let i = 0; i < hrefs.length; ++i){
+		 if(hrefs[i].getAttribute('href')===window.location.pathname){
+			 const div = hrefs[i].nextElementSibling;
+			 div.classList.add('white-line');
+		 }
+	 }
+	}
+	setcurrent();
+	document.addEventListener('astro:after-swap',()=>{setcurrent()})
+ </script>
