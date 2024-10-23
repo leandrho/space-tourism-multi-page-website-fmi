@@ -29,7 +29,7 @@ const destino :Destination | undefined = getDestination(param.name);
 				</div>
 				<div class="content-right">
 					<div class="tab">
-						<TabMenu tabLinks={dests}/>
+						<TabMenu tabLinks={dests} current={param.name}/>
 					</div>
 					<div class="data-content">
 						<h2 class="title">{destino?.name}</h2>
