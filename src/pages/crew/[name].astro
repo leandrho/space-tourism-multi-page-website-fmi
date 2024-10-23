@@ -32,7 +32,7 @@ const crew :Crew | undefined = getCrew(param.name);
 						</p>
 					</div>
 					<div class="paginator">
-						<SmallPagination tabLinks={getCrewTabLinks()} transition:name="smallpag"/>
+						<SmallPagination tabLinks={getCrewTabLinks()} current={param.name} transition:name="smallpag"/>
 					</div>
 				</div>
 				<div class="content-right">

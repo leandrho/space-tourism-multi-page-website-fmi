@@ -2,9 +2,7 @@
 
 import type { NtLink } from "../interfaces/nt-link";
 
-const { tabLinks } = Astro.props;
-const currentPath = Astro.url.pathname.replace('%20',' ');
-
+const { tabLinks, current } = Astro.props;
 ---
 
 <div class="wrapper" data-id="small-tab">
@@ -14,14 +12,13 @@ const currentPath = Astro.url.pathname.replace('%20',' ');
             <a href={link.ref} 
             class:list={[
                 'dot',
-                { 'active': currentPath == link.ref ? true : false }
+                { 'active': link.ref.includes(current) ? true : false }
             ]}
             aria-label="dot"></a> 
         )
     }
 
 </div>
-
 <style>
     .wrapper{
         display: flex;
@@ -49,24 +46,3 @@ const currentPath = Astro.url.pathname.replace('%20',' ');
         }
     }
 </style>
-
-<script>
-     const init = () => {
-        const tabElem = document.querySelector('[data-id="small-tab"]') ;
-        setInterval(() => {
-                const active = tabElem!.querySelector('.active') as HTMLAnchorElement ;
-                if(!active)
-                    return;
-                active.classList.remove('active');
-                let next : HTMLAnchorElement ;
-                if(active.nextElementSibling)
-                    next = active.nextElementSibling as HTMLAnchorElement;
-                else{
-                    next = tabElem!.firstElementChild as HTMLAnchorElement;
-                }
-                next!.click();
-        }, 1000);
-    }
-    // init();
-    // document.addEventListener('astro:page-load', init)
-</script>
